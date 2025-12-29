@@ -9,6 +9,7 @@ help:
 	@echo "  make env       - Copy .env.example to .env"
 	@echo "  make up        - Start the containers"
 	@echo "  make down      - Stop the containers"
+	@echo "  make clean		- cleans all build cache layers"
 	@echo "  make logs      - Show container logs"
 	@echo "  make shell     - Open a shell in the api container"
 	@echo "  make migrate   - Run database migrations"
@@ -19,15 +20,19 @@ help:
 	@echo "  make ui-dev    - Install dependencies and start the frontend in dev mode"
 	@echo "  make ui        - Install dependencies and start the frontend in production mode"
 
+
 env:
 	cd api && cp .env.example .env
 	cd ui && cp .env.example .env
 
 build:
-	docker compose build
+	docker compose build --no-cache --pull
+
+clean:
+	docker builder prune -a
 
 up:
-	NEXT_PUBLIC_USER_ID=$(USER) NEXT_PUBLIC_API_URL=$(NEXT_PUBLIC_API_URL) docker compose up
+	NEXT_PUBLIC_USER_ID=$(USER) NEXT_PUBLIC_API_URL=$(NEXT_PUBLIC_API_URL) docker compose up 
 
 down:
 	docker compose down -v

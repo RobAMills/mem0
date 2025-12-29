@@ -15,6 +15,8 @@ class LLMConfig(BaseModel):
     max_tokens: int = Field(..., description="Maximum tokens to generate")
     api_key: Optional[str] = Field(None, description="API key or 'env:API_KEY' to use environment variable")
     ollama_base_url: Optional[str] = Field(None, description="Base URL for Ollama server (e.g., http://host.docker.internal:11434)")
+    openai_base_url: Optional[str] = Field(None, description="Base URL for OpenAI-compatible APIs (e.g., https://api.z.ai/api/paas/v4)")
+    api_base: Optional[str] = Field(None, description="Base URL for LiteLLM provider (e.g., https://api.z.ai/api/paas/v4)")
 
 class LLMProvider(BaseModel):
     provider: str = Field(..., description="LLM provider name")
@@ -24,6 +26,8 @@ class EmbedderConfig(BaseModel):
     model: str = Field(..., description="Embedder model name")
     api_key: Optional[str] = Field(None, description="API key or 'env:API_KEY' to use environment variable")
     ollama_base_url: Optional[str] = Field(None, description="Base URL for Ollama server (e.g., http://host.docker.internal:11434)")
+    openai_base_url: Optional[str] = Field(None, description="Base URL for OpenAI-compatible APIs")
+    api_base: Optional[str] = Field(None, description="Base URL for LiteLLM provider")
 
 class EmbedderProvider(BaseModel):
     provider: str = Field(..., description="Embedder provider name")
@@ -54,19 +58,18 @@ def get_default_configuration():
         },
         "mem0": {
             "llm": {
-                "provider": "openai",
+                "provider": "ollama",
                 "config": {
-                    "model": "gpt-4o-mini",
+                    "model": "phi3:mini",
                     "temperature": 0.1,
                     "max_tokens": 2000,
-                    "api_key": "env:OPENAI_API_KEY"
+                    "ollama_base_url": "http://host.docker.internal:11434"
                 }
             },
             "embedder": {
-                "provider": "openai",
+                "provider": "huggingface",
                 "config": {
-                    "model": "text-embedding-3-small",
-                    "api_key": "env:OPENAI_API_KEY"
+                    "model": "sentence-transformers/all-MiniLM-L6-v2"
                 }
             },
             "vector_store": None

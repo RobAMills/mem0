@@ -268,26 +268,31 @@ async def create_memory(
         
         # Log the response for debugging
         logging.info(f"Qdrant response: {qdrant_response}")
-        
+        logging.info(f"Qdrant response type: {type(qdrant_response)}")
+
         # Process Qdrant response
         if isinstance(qdrant_response, dict) and 'results' in qdrant_response:
             created_memories = []
-            
+
             for result in qdrant_response['results']:
+                logging.info(f"Processing result: {result}")
                 if result['event'] == 'ADD':
                     # Get the Qdrant-generated ID
                     memory_id = UUID(result['id'])
-                    
+                    logging.info(f"Creating/updating memory with ID: {memory_id}")
+
                     # Check if memory already exists
                     existing_memory = db.query(Memory).filter(Memory.id == memory_id).first()
-                    
+
                     if existing_memory:
                         # Update existing memory
+                        logging.info(f"Updating existing memory: {memory_id}")
                         existing_memory.state = MemoryState.active
                         existing_memory.content = result['memory']
                         memory = existing_memory
                     else:
                         # Create memory with the EXACT SAME ID from Qdrant
+                        logging.info(f"Creating new memory: {memory_id}")
                         memory = Memory(
                             id=memory_id,  # Use the same ID that Qdrant generated
                             user_id=user.id,
@@ -297,7 +302,7 @@ async def create_memory(
                             state=MemoryState.active
                         )
                         db.add(memory)
-                    
+
                     # Create history entry
                     history = MemoryStatusHistory(
                         memory_id=memory_id,
@@ -306,18 +311,25 @@ async def create_memory(
                         new_state=MemoryState.active
                     )
                     db.add(history)
-                    
+
                     created_memories.append(memory)
-            
+
             # Commit all changes at once
             if created_memories:
+                logging.info(f"Committing {len(created_memories)} memories to database")
                 db.commit()
                 for memory in created_memories:
                     db.refresh(memory)
-                
+
+                logging.info(f"Successfully saved memories to database")
                 # Return the first memory (for API compatibility)
                 # but all memories are now saved to the database
                 return created_memories[0]
+        else:
+            logging.warning(f"Unexpected response format from memory_client.add(): {qdrant_response}")
+            return {
+                "error": "Unexpected response format from memory system"
+            }
     except Exception as qdrant_error:
         logging.warning(f"Qdrant operation failed: {qdrant_error}.")
         # Return a json response with the error

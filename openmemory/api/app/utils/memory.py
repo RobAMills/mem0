@@ -152,7 +152,8 @@ def get_default_memory_config():
         vector_store_provider = "qdrant"
         vector_store_config.update({
             "host": os.environ.get('QDRANT_HOST'),
-            "port": int(os.environ.get('QDRANT_PORT'))
+            "port": int(os.environ.get('QDRANT_PORT')),
+            "embedding_model_dims": 384
         })
     elif os.environ.get('WEAVIATE_CLUSTER_URL') or (os.environ.get('WEAVIATE_HOST') and os.environ.get('WEAVIATE_PORT')):
         vector_store_provider = "weaviate"
@@ -232,29 +233,29 @@ def get_default_memory_config():
         vector_store_provider = "qdrant"
         vector_store_config.update({
             "port": 6333,
+            "embedding_model_dims": 384
         })
     
     print(f"Auto-detected vector store: {vector_store_provider} with config: {vector_store_config}")
-    
+
     return {
         "vector_store": {
             "provider": vector_store_provider,
             "config": vector_store_config
         },
         "llm": {
-            "provider": "openai",
+            "provider": "ollama",
             "config": {
-                "model": "gpt-4o-mini",
+                "model": "phi3:mini",
                 "temperature": 0.1,
                 "max_tokens": 2000,
-                "api_key": "env:OPENAI_API_KEY"
+                "ollama_base_url": "http://host.docker.internal:11434"
             }
         },
         "embedder": {
-            "provider": "openai",
+            "provider": "huggingface",
             "config": {
-                "model": "text-embedding-3-small",
-                "api_key": "env:OPENAI_API_KEY"
+                "model": "sentence-transformers/all-MiniLM-L6-v2"
             }
         },
         "version": "v1.1"
