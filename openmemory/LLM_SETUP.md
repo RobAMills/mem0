@@ -453,7 +453,8 @@ CATEGORIZATION_MODEL=gpt-4o-mini
 ### Model Selection
 
 **For Memory Processing:**
-- **Production**: OpenAI `gpt-4o-mini` (best reliability)
+- **Production**: Z.AI `glm-4.7` (default, best value)
+- **Alternative**: OpenAI `gpt-4o-mini` (best reliability)
 - **Development**: Ollama `phi3:mini` (free, local)
 - **Privacy-focused**: Ollama `llama3.1:8b` (runs locally)
 

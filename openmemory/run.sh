@@ -5,13 +5,13 @@ set -e
 echo "🚀 Starting OpenMemory installation..."
 
 # Set environment variables
-OPENAI_API_KEY="${OPENAI_API_KEY:-}"
+ZAI_API_KEY="${ZAI_API_KEY:-}"
 USER="${USER:-$(whoami)}"
 NEXT_PUBLIC_API_URL="${NEXT_PUBLIC_API_URL:-http://localhost:8765}"
 
-if [ -z "$OPENAI_API_KEY" ]; then
-  echo "❌ OPENAI_API_KEY not set. Please run with: curl -sL https://raw.githubusercontent.com/mem0ai/mem0/main/openmemory/run.sh | OPENAI_API_KEY=your_api_key bash"
-  echo "❌ OPENAI_API_KEY not set. You can also set it as global environment variable: export OPENAI_API_KEY=your_api_key"
+if [ -z "$ZAI_API_KEY" ]; then
+  echo "❌ ZAI_API_KEY not set. Please run with: curl -sL https://raw.githubusercontent.com/mem0ai/mem0/main/openmemory/run.sh | ZAI_API_KEY=your_api_key bash"
+  echo "❌ ZAI_API_KEY not set. You can also set it as global environment variable: export ZAI_API_KEY=your_api_key"
   exit 1
 fi
 
@@ -48,7 +48,7 @@ if [ -z "$FRONTEND_PORT" ]; then
 fi
 
 # Export required variables for Compose and frontend
-export OPENAI_API_KEY
+export ZAI_API_KEY
 export USER
 export NEXT_PUBLIC_API_URL
 export NEXT_PUBLIC_USER_ID="$USER"
@@ -107,7 +107,7 @@ create_compose_file() {
   openmemory-mcp:
     image: mem0/openmemory-mcp:latest
     environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ZAI_API_KEY=${ZAI_API_KEY}
       - USER=${USER}
 EOF
 

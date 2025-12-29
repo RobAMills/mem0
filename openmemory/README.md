@@ -16,16 +16,16 @@ You can quickly run OpenMemory by running the following command:
 curl -sL https://raw.githubusercontent.com/mem0ai/mem0/main/openmemory/run.sh | bash
 ```
 
-You should set the `OPENAI_API_KEY` as a global environment variable:
+You should set the `ZAI_API_KEY` as a global environment variable:
 
 ```bash
-export OPENAI_API_KEY=your_api_key
+export ZAI_API_KEY=your_api_key
 ```
 
-You can also set the `OPENAI_API_KEY` as a parameter to the script:
+You can also set the `ZAI_API_KEY` as a parameter to the script:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/mem0ai/mem0/main/openmemory/run.sh | OPENAI_API_KEY=your_api_key bash
+curl -sL https://raw.githubusercontent.com/mem0ai/mem0/main/openmemory/run.sh | ZAI_API_KEY=your_api_key bash
 ```
 
 ## Prerequisites
@@ -33,7 +33,7 @@ curl -sL https://raw.githubusercontent.com/mem0ai/mem0/main/openmemory/run.sh | 
 - Docker and Docker Compose
 - Python 3.9+ (for backend development)
 - Node.js (for frontend development)
-- OpenAI API Key (required for LLM interactions, run `cp api/.env.example api/.env` then change **OPENAI_API_KEY** to yours)
+- Z.AI API Key (required for LLM interactions, run `cp api/.env.example api/.env` then change **ZAI_API_KEY** to yours)
 
 ## Quickstart
 
@@ -65,8 +65,8 @@ You can do this in one of the following ways:
 - #### Example `/api/.env`
 
 ```env
-OPENAI_API_KEY=sk-xxx
-USER=<user-id> # The User Id you want to associate the memories with 
+ZAI_API_KEY=your-zai-api-key
+USER=<user-id> # The User Id you want to associate the memories with
 ```
 - #### Example `/ui/.env`
 
