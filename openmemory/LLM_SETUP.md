@@ -103,14 +103,14 @@ Z.AI provides OpenAI-compatible API with GLM models.
         "temperature": 0.1,
         "max_tokens": 2000,
         "api_key": "env:ZAI_API_KEY",
-        "api_base": "https://api.z.ai/api/paas/v4"
+        "api_base": "https://api.z.ai/api/coding/paas/v4"
       }
     }
   }
 }
 ```
 
-**Option B: Using OpenAI Provider**
+**Option B: Using OpenAI Provider (Default)**
 ```json
 {
   "mem0": {
@@ -121,7 +121,7 @@ Z.AI provides OpenAI-compatible API with GLM models.
         "temperature": 0.1,
         "max_tokens": 2000,
         "api_key": "env:ZAI_API_KEY",
-        "openai_base_url": "https://api.z.ai/api/paas/v4"
+        "openai_base_url": "https://api.z.ai/api/coding/paas/v4"
       }
     }
   }
@@ -571,7 +571,7 @@ This setup uses OpenAI for memory processing, HuggingFace for embeddings (free),
       "config": {
         "model": "glm-4.7",
         "api_key": "env:ZAI_API_KEY",
-        "openai_base_url": "https://api.z.ai/api/paas/v4"
+        "openai_base_url": "https://api.z.ai/api/coding/paas/v4"
       }
     },
     "embedder": {
@@ -579,7 +579,7 @@ This setup uses OpenAI for memory processing, HuggingFace for embeddings (free),
       "config": {
         "model": "embedding-3",
         "api_key": "env:ZAI_API_KEY",
-        "openai_base_url": "https://api.z.ai/api/paas/v4"
+        "openai_base_url": "https://api.z.ai/api/coding/paas/v4"
       }
     }
   }

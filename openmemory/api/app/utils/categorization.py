@@ -70,7 +70,7 @@ def _get_categories_zai(memory: str) -> List[str]:
     # Z.AI uses OpenAI-compatible API
     zai_client = OpenAI(
         api_key=os.getenv("ZAI_API_KEY"),
-        base_url="https://api.z.ai/api/paas/v4"
+        base_url="https://api.z.ai/api/coding/paas/v4"
     )
 
     try:

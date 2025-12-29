@@ -192,7 +192,7 @@ The LLM used for memory extraction is configured in Settings or `config.json`:
         "temperature": 0.1,
         "max_tokens": 2000,
         "api_key": "env:ZAI_API_KEY",
-        "openai_base_url": "https://api.z.ai/api/paas/v4"
+        "openai_base_url": "https://api.z.ai/api/coding/paas/v4"
       }
     }
   }

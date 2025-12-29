@@ -1,13 +1,12 @@
 {
     "mem0": {
         "llm": {
-            "provider": "openai",
+            "provider": "ollama",
             "config": {
-                "model": "glm-4.7",
+                "model": "phi3:mini",
                 "temperature": 0.1,
                 "max_tokens": 2000,
-                "api_key": "env:ZAI_API_KEY",
-                "openai_base_url": "https://api.z.ai/api/paas/v4"
+                "ollama_base_url": "http://host.docker.internal:11434"
             }
         },
         "embedder": {
